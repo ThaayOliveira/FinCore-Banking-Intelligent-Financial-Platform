@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: identity-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/fincore_identity
+    username: fincore
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  flyway:
+    enabled: true
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+  endpoint:
+    health:
+      show-details: when_authorized
+
+security:
+  jwt:
+    secret: ${FINCORE_JWT_SECRET:fin-core-development-secret-key-change-this-256-bit-secret}
